@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AFFISPIRE – Honest Product Reviews</title>
+<meta name="description" content="AFFISPIRE – Hand-picked, honestly reviewed products across every category. Find the best deals on Amazon."/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --fg:#111;--fg2:#555;--fg3:#888;
+    --bg:#fff;--bg2:#f7f6f3;--bg3:#eeecea;
+    --accent:#1a1a1a;--border:#e0deda;
+    --green:#2e7d4f;--green-bg:#edf7f1;
+    --radius:10px;
+  }
+  body{font-family:'DM Sans',sans-serif;color:var(--fg);background:var(--bg);font-size:15px;line-height:1.6}
+
+  nav{display:flex;align-items:center;justify-content:space-between;padding:18px 40px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(6px);z-index:100}
+  .logo{font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-0.5px;color:var(--fg)}
+  .logo span{color:#b8a97a}
+  nav ul{list-style:none;display:flex;gap:28px}
+  nav ul li a{text-decoration:none;color:var(--fg2);font-size:14px;font-weight:400;transition:color .2s}
+  nav ul li a:hover{color:var(--fg)}
+  .nav-cta{background:var(--fg);color:#fff!important;padding:7px 16px;border-radius:6px;font-size:13px!important;font-weight:500!important}
+  .nav-cta:hover{background:#333!important;color:#fff!important}
+
+  .hero{padding:80px 40px 64px;max-width:780px;margin:0 auto;text-align:center}
+  .hero-tag{display:inline-block;background:var(--bg2);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--fg3);padding:5px 14px;margin-bottom:28px;letter-spacing:.4px;text-transform:uppercase}
+  .hero h1{font-family:'DM Serif Display',serif;font-size:52px;line-height:1.1;letter-spacing:-1.5px;margin-bottom:20px;color:var(--fg)}
+  .hero p{font-size:17px;color:var(--fg2);max-width:520px;margin:0 auto 36px;line-height:1.7}
+  .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn-primary{background:var(--fg);color:#fff;border:none;padding:12px 26px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block}
+  .btn-secondary{background:transparent;color:var(--fg);border:1px solid var(--border);padding:12px 26px;border-radius:8px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block}
+
+  .disclosure-banner{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:10px 40px;font-size:12px;color:var(--fg3);text-align:center}
+  .disclosure-banner strong{color:var(--fg2)}
+
+  section{padding:56px 40px;max-width:1060px;margin:0 auto}
+  .section-label{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--fg3);margin-bottom:10px;font-weight:500}
+  .section-title{font-family:'DM Serif Display',serif;font-size:32px;letter-spacing:-0.8px;margin-bottom:8px}
+  .section-sub{color:var(--fg2);margin-bottom:36px;font-size:15px}
+
+  .reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .review-card{border:1px solid var(--border);border-radius:var(--radius);padding:24px;background:var(--bg);transition:border-color .2s,transform .2s}
+  .review-card:hover{border-color:#ccc;transform:translateY(-2px)}
+  .card-tag{display:inline-block;font-size:11px;background:var(--bg2);border-radius:4px;padding:3px 9px;color:var(--fg3);margin-bottom:14px;font-weight:500;letter-spacing:.3px}
+  .card-title{font-weight:500;font-size:16px;margin-bottom:6px;color:var(--fg)}
+  .card-desc{font-size:13px;color:var(--fg2);margin-bottom:16px;line-height:1.65}
+  .stars{color:#d4a017;font-size:13px;margin-bottom:14px;letter-spacing:1px}
+  .rating-badge{font-size:12px;color:var(--fg3);margin-left:4px}
+  .card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:14px;margin-top:4px}
+  .price{font-size:18px;font-weight:500;color:var(--fg)}
+  .price-sub{font-size:11px;color:var(--fg3);display:block}
+  .amazon-btn{background:#f5901a;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;white-space:nowrap}
+  .amazon-btn:hover{background:#e07d10}
+  .top-pick{border-color:#b8a97a;position:relative}
+  .top-pick-badge{position:absolute;top:-10px;left:20px;background:#b8a97a;color:#fff;font-size:10px;font-weight:500;padding:3px 10px;border-radius:4px;letter-spacing:.5px;text-transform:uppercase}
+
+  .categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:8px}
+  .cat-card{border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-align:center;cursor:pointer;transition:background .15s,border-color .15s}
+  .cat-card:hover{background:var(--bg2);border-color:#ccc}
+  .cat-icon{font-size:24px;margin-bottom:8px}
+  .cat-name{font-size:13px;font-weight:500;color:var(--fg)}
+  .cat-count{font-size:11px;color:var(--fg3);margin-top:2px}
+
+  .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:8px}
+  .how-step{padding:24px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg)}
+  .step-num{font-family:'DM Serif Display',serif;font-size:36px;color:var(--border);line-height:1;margin-bottom:12px}
+  .step-title{font-weight:500;font-size:15px;margin-bottom:6px}
+  .step-desc{font-size:13px;color:var(--fg2);line-height:1.6}
+
+  .about-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:40px;display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap}
+  .about-text h3{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:12px}
+  .about-text p{font-size:14px;color:var(--fg2);line-height:1.75;max-width:520px}
+  .about-stats{display:flex;gap:32px;margin-top:24px;flex-wrap:wrap}
+  .stat-num{font-family:'DM Serif Display',serif;font-size:28px;color:var(--fg)}
+  .stat-label{font-size:12px;color:var(--fg3);margin-top:2px}
+
+  .disclosure-page{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:36px;margin-top:48px}
+  .disclosure-page h3{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:16px}
+  .disclosure-page p{font-size:13px;color:var(--fg2);line-height:1.8;margin-bottom:10px}
+
+  footer{border-top:1px solid var(--border);padding:36px 40px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;background:var(--bg)}
+  .footer-logo{font-family:'DM Serif Display',serif;font-size:18px}
+  .footer-logo span{color:#b8a97a}
+  .footer-links{display:flex;gap:20px;flex-wrap:wrap}
+  .footer-links a{font-size:13px;color:var(--fg3);text-decoration:none;cursor:pointer}
+  .footer-links a:hover{color:var(--fg)}
+  .footer-copy{font-size:12px;color:var(--fg3);width:100%}
+
+  .page-section{display:none}
+  .page-section.active{display:block}
+  #home-page{display:block}
+  .nav-active{color:var(--fg)!important;font-weight:500!important}
+
+  @media(max-width:600px){
+    nav{padding:14px 20px;flex-wrap:wrap;gap:12px}
+    nav ul{gap:14px}
+    .hero{padding:48px 20px 40px}
+    .hero h1{font-size:36px}
+    section{padding:40px 20px}
+    footer{padding:24px 20px}
+    .disclosure-banner{padding:10px 20px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">AFFI<span>SPIRE</span></div>
+  <ul>
+    <li><a href="#" onclick="showPage('home')" id="nav-home" class="nav-active">Home</a></li>
+    <li><a href="#" onclick="showPage('reviews')" id="nav-reviews">Reviews</a></li>
+    <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a href="#" onclick="showPage('disclosure')" id="nav-disclosure">Disclosure</a></li>
+    <li><a href="https://affiliate-program.amazon.in" target="_blank" class="nav-cta">Join Amazon</a></li>
+  </ul>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="home-page" class="page-section active">
+
+  <div class="disclosure-banner">
+    <strong>Affiliate Disclosure:</strong> AFFISPIRE participates in the Amazon Associates program. We may earn a commission when you purchase through our links — at no extra cost to you.
+  </div>
+
+  <div class="hero">
+    <span class="hero-tag">Honest Reviews · Real Picks</span>
+    <h1>Find products you'll actually love</h1>
+    <p>AFFISPIRE cuts through the noise with hand-picked, honestly reviewed products across every category — from gadgets to home essentials.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary" onclick="showPage('reviews')">Browse Reviews</a>
+      <a href="#" class="btn-secondary" onclick="showPage('about')">About Us</a>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-label">Shop by Category</div>
+    <div class="section-title">What are you looking for?</div>
+    <div class="section-sub">Curated picks across the most popular departments.</div>
+    <div class="categories">
+      <div class="cat-card" onclick="showPage('reviews')"><div class="cat-icon">💻</div><div class="cat-name">Tech & Gadgets</div><div class="cat-count">24 reviews</div></div>
+      <div class="cat-card" onclick="showPage('reviews')"><div class="cat-icon">🏠</div><div class="cat-name">Home & Kitchen</div><div class="cat-count">18 reviews</div></div>
+      <div class="cat-card" onclick="showPage('reviews')"><div class="cat-icon">📚</div><div class="cat-name">Books</div><div class="cat-count">12 reviews</div></div>
+      <div class="cat-card" onclick="showPage('reviews')"><div class="cat-icon">💪</div><div class="cat-name">Health & Fitness</div><div class="cat-count">15 reviews</div></div>
+      <div class="cat-card" onclick="showPage('reviews')"><div class="cat-icon">✈️</div><div class="cat-name">Travel</div><div class="cat-count">9 reviews</div></div>
+      <div class="cat-card" onclick="showPage('reviews')"><div class="cat-icon">🎮</div><div class="cat-name">Gaming</div><div class="cat-count">11 reviews</div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">How We Work</div>
+    <div class="section-title">No fluff, just honest picks</div>
+    <div class="how-grid">
+      <div class="how-step"><div class="step-num">01</div><div class="step-title">We research</div><div class="step-desc">Every product is thoroughly researched across hundreds of real user reviews and specs before it makes our list.</div></div>
+      <div class="how-step"><div class="step-num">02</div><div class="step-title">We review</div><div class="step-desc">We write honest, detailed reviews — pros, cons, who it's best for, and what the alternatives are.</div></div>
+      <div class="how-step"><div class="step-num">03</div><div class="step-title">You decide</div><div class="step-desc">You get all the information you need to make a confident purchase. No hype, no hidden motives.</div></div>
+      <div class="how-step"><div class="step-num">04</div><div class="step-title">We earn a little</div><div class="step-desc">If you buy through our Amazon link, we earn a small commission. It keeps this site running — transparently.</div></div>
+    </div>
+  </section>
+</div>
+
+<!-- REVIEWS PAGE -->
+<div id="reviews-page" class="page-section">
+  <section>
+    <div class="section-label">Product Reviews</div>
+    <div class="section-title">Our top picks right now</div>
+    <div class="section-sub">Updated regularly. Every link goes to Amazon.</div>
+    <div class="reviews-grid">
+
+      <div class="review-card top-pick">
+        <div class="top-pick-badge">⭐ Top Pick</div>
+        <div class="card-tag">Tech</div>
+        <div class="card-title">Anker 735 GaN Charger (65W)</div>
+        <div class="stars">★★★★★ <span class="rating-badge">4.8 / 5</span></div>
+        <div class="card-desc">Charges 3 devices simultaneously — laptop, phone, earbuds. Compact enough to toss in any bag. A genuine upgrade over bulky OEM chargers.</div>
+        <div class="card-footer">
+          <div><span class="price">~₹2,500</span><span class="price-sub">on Amazon</span></div>
+          <a href="https://www.amazon.in/s?k=Anker+GaN+Charger" target="_blank" class="amazon-btn">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="card-tag">Home</div>
+        <div class="card-title">Instant Pot Duo 7-in-1</div>
+        <div class="stars">★★★★★ <span class="rating-badge">4.7 / 5</span></div>
+        <div class="card-desc">Pressure cooker, slow cooker, rice cooker and more in one device. Saves significant time on everyday Indian cooking including dal, biryani, and curries.</div>
+        <div class="card-footer">
+          <div><span class="price">~₹7,999</span><span class="price-sub">on Amazon</span></div>
+          <a href="https://www.amazon.in/s?k=Instant+Pot+Duo" target="_blank" class="amazon-btn">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="card-tag">Health</div>
+        <div class="card-title">Boldfit Resistance Bands Set</div>
+        <div class="stars">★★★★☆ <span class="rating-badge">4.4 / 5</span></div>
+        <div class="card-desc">5 resistance levels, latex-free, great for home workouts. Compact and durable. An easy recommendation for anyone building a home gym on a budget.</div>
+        <div class="card-footer">
+          <div><span class="price">~₹599</span><span class="price-sub">on Amazon</span></div>
+          <a href="https://www.amazon.in/s?k=Boldfit+Resistance+Bands" target="_blank" class="amazon-btn">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="card-tag">Books</div>
+        <div class="card-title">Atomic Habits – James Clear</div>
+        <div class="stars">★★★★★ <span class="rating-badge">4.9 / 5</span></div>
+        <div class="card-desc">The most practical book on building good habits we've come across. Readable, evidence-based, and immediately actionable. A permanent fixture on the desk.</div>
+        <div class="card-footer">
+          <div><span class="price">~₹399</span><span class="price-sub">on Amazon</span></div>
+          <a href="https://www.amazon.in/s?k=Atomic+Habits+James+Clear" target="_blank" class="amazon-btn">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="card-tag">Tech</div>
+        <div class="card-title">boAt Rockerz 450 Headphones</div>
+        <div class="stars">★★★★☆ <span class="rating-badge">4.3 / 5</span></div>
+        <div class="card-desc">15-hour battery, decent bass, and a very affordable price point. The best budget wireless headphone in India right now for everyday use.</div>
+        <div class="card-footer">
+          <div><span class="price">~₹1,299</span><span class="price-sub">on Amazon</span></div>
+          <a href="https://www.amazon.in/s?k=boAt+Rockerz+450" target="_blank" class="amazon-btn">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="card-tag">Travel</div>
+        <div class="card-title">Safari Polycarbonate Cabin Bag</div>
+        <div class="stars">★★★★☆ <span class="rating-badge">4.5 / 5</span></div>
+        <div class="card-desc">Lightweight, scratch-resistant, and TSA-approved. Fits most overhead bins on domestic Indian flights. Holds up well after a year of regular use.</div>
+        <div class="card-footer">
+          <div><span class="price">~₹3,499</span><span class="price-sub">on Amazon</span></div>
+          <a href="https://www.amazon.in/s?k=Safari+Polycarbonate+Cabin+Bag" target="_blank" class="amazon-btn">View on Amazon →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- ABOUT PAGE -->
+<div id="about-page" class="page-section">
+  <section>
+    <div class="section-label">About</div>
+    <div class="section-title">Who is behind AFFISPIRE?</div>
+    <div class="about-box">
+      <div class="about-text">
+        <h3>Real recommendations from real research</h3>
+        <p>AFFISPIRE was started with one simple belief: most product recommendation sites are either too generic or secretly just pushing whatever pays the most commission.</p>
+        <p style="margin-top:14px">We do it differently. Every product featured here has been researched thoroughly — reading through hundreds of reviews, comparing specs, and thinking about who the product is actually right for. We're based in Thiruvananthapuram, Kerala, and our picks lean toward what actually makes sense for everyday life in India.</p>
+        <p style="margin-top:14px">We are Amazon Associates, which means we earn a small commission if you buy through our links. That's how we keep the lights on. But it never changes what we recommend — we'd rather send zero traffic to a product we don't believe in.</p>
+        <div class="about-stats">
+          <div class="stat"><div class="stat-num">89+</div><div class="stat-label">Products reviewed</div></div>
+          <div class="stat"><div class="stat-num">6</div><div class="stat-label">Categories covered</div></div>
+          <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Independent opinions</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- DISCLOSURE PAGE -->
+<div id="disclosure-page" class="page-section">
+  <section>
+    <div class="section-label">Legal</div>
+    <div class="section-title">Affiliate Disclosure</div>
+    <div class="disclosure-page">
+      <h3>Amazon Associates Disclosure</h3>
+      <p>AFFISPIRE is a participant in the Amazon Associates Programme, an affiliate advertising programme designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.in.</p>
+      <p>When you click a link on this website and make a purchase on Amazon, we may receive a small commission at no additional cost to you. This helps fund the research and writing that goes into our reviews.</p>
+      <p>Our editorial opinions are entirely independent. We do not accept payment to feature or positively review any product. The commission we earn does not influence which products we recommend or how we rate them.</p>
+      <p>All prices shown are approximate and may vary. Always check the current price on Amazon before purchasing.</p>
+      <p>This disclosure is provided in accordance with the Federal Trade Commission's 16 CFR, Part 255: "Guides Concerning the Use of Endorsements and Testimonials in Advertising" and Amazon's Operating Agreement for Associates.</p>
+      <p style="margin-top:20px;font-size:12px;color:var(--fg3)">Last updated: May 2026 · Contact: hello@affispire.com</p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="footer-logo">AFFI<span>SPIRE</span></div>
+  <div class="footer-links">
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('reviews')">Reviews</a>
+    <a onclick="showPage('about')">About</a>
+    <a onclick="showPage('disclosure')">Affiliate Disclosure</a>
+  </div>
+  <div class="footer-copy">© 2026 AFFISPIRE · We are Amazon Associates. Links on this site may earn us a commission.</div>
+</footer>
+
+<script>
+function showPage(name){
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('nav ul li a').forEach(a=>a.classList.remove('nav-active'));
+  document.getElementById(name+'-page').classList.add('active');
+  var navEl=document.getElementById('nav-'+name);
+  if(navEl) navEl.classList.add('nav-active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
